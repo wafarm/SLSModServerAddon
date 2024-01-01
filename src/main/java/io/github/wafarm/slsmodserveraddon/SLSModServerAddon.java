@@ -1,6 +1,7 @@
 package io.github.wafarm.slsmodserveraddon;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.client.Minecraft;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import oshi.SystemInfo;
@@ -14,6 +15,11 @@ public class SLSModServerAddon implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Creating a detailed report of everything...");
         collectSystemInfo();
+
+        // I don't like PCL for various reasons
+        if (Minecraft.getInstance().getVersionType().contains("PCL")) {
+            LOGGER.warn("Stop using PCL!");
+        }
     }
 
     private void collectSystemInfo() {
